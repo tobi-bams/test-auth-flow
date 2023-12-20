@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import * as sphinx from "sphinx-bridge-tobibams";
+import { useState } from "react";
 
 function App() {
+  const [enableText, setEnableText] = useState("");
+  async function good() {
+    const result = await sphinx.enable();
+    console.log(result);
+    setEnableText(JSON.stringify(result));
+  }
+
+  async function setBudget() {
+    const result = await sphinx.setBudget();
+    console.log(result);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={good}>Enable</button>
+      <p>{enableText}</p>
+
+      <button onClick={setBudget}>Set Budget</button>
     </div>
   );
 }
